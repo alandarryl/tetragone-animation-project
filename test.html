@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hexagon Grid</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #393741;
+      color: #fff;
+    }
+
+    .conteneur {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hexagone {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      /*background: #a3f9fe;*/
+      /*background: transparent;*/
+      /*background: radial-gradient(circle at center, #a3f9fe 0%, #a3f9fe 0%, transparent 70%);*/
+      clip-path: polygon(
+        50% 0%,
+        100% 25%,
+        100% 75%,
+        50% 100%,
+        0% 75%,
+        0% 25%
+      );
+      text-align: center;
+      overflow: hidden;
+      background-color: #393741;
+      /*animation: pulse 4s infinite;*/
+      /*animation: fillcenter 1s infinite ease-in-out;*/
+      /*animation: fillFromCenter 2s ease-in-out infinite;*/
+    }
+
+    .hexagone .fill{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20%;
+      height: 20%;
+      background: linear-gradient(180deg,#00fff2,#00c6ff);
+    border-radius:50%;
+    transform: translate(-50%,-50%) scale(0);
+    transform-origin: center center;
+    filter: drop-shadow(0 6px 24px rgba(0,255,242,0.12));
+    animation: fillShape 2.5s ease-in-out infinite;
+    }
+
+      @keyframes fillShape {
+    0% {
+      transform: translate(-50%,-50%) scale(0);
+      opacity: 1;
+    }
+    45% {
+      /* le cercle grossit pour recouvrir entièrement l'hexagone */
+      transform: translate(-50%,-50%) scale(6.2);
+      opacity: 1;
+    }
+    55% {
+      /* maintien complètement rempli pendant un court instant */
+      transform: translate(-50%,-50%) scale(6.2);
+      opacity: 1;
+    }
+    100% {
+      /* retracte pour redevenir un point et disparaître */
+      transform: translate(-50%,-50%) scale(0);
+      opacity: 0;
+    }
+  }
+
+
+    /* Délais d’animation pour l’effet "onde" */
+    .centre .fill{ animation-delay: 0.5s; }
+
+    .autour1 .fill, .autour2 .fill, .autour3 .fill, .autour4 .fill, .autour5 .fill, .autour6 .fill{
+      animation-delay: 1s;
+    }
+
+    .autour2-1, .autour2-2, .autour2-3, .autour2-4, .autour2-5,
+    .autour2-6, .autour2-7, .autour2-8, .autour2-9, .autour2-10,
+    .autour2-11, .autour2-12{
+      animation-delay: 1.5s;
+    }
+
+    .autour3-1, .autour3-2, .autour3-3, .autour3-4, .autour3-5, .autour3-6,
+    .autour3-7, .autour3-8, .autour3-9, .autour3-10, .autour3-11, .autour3-12,
+    .autour3-13, .autour3-14, .autour3-15, .autour3-16, .autour3-17, .autour3-18{
+      animation-delay: 2s;
+    }
+
+    /* Positions */
+    .centre {
+      transform: translate(0, 0);
+      z-index: 10;
+    }
+
+    /* premiere couche recouvrons le noyau avec 6 hexa */
+    .autour1 {
+      transform: translate(-50px, -70px);
+    }
+
+    .autour2 {
+      transform: translate(50px, -70px);
+    }
+
+    .autour3 {
+      transform: translate(100px, 0px);
+    }
+
+    .autour4 {
+      transform: translate(50px, 70px);
+    }
+
+    .autour5 {
+      transform: translate(-50px, 70px);
+    }
+
+    .autour6 {
+      transform: translate(-100px, 0px);
+    }
+
+    /* deuxieme couche recouvrons le noyau avec 12 hexa */
+
+    .autour2-1{
+      transform: translate(0, 140px);
+    }
+
+    .autour2-2{
+      transform: translate(-100px, 140px);
+    }
+
+    .autour2-3{
+      transform: translate(100px, 140px);
+    }
+
+    .autour2-4{
+      transform: translate(-150px, 70px);
+    }
+
+    .autour2-5{
+      transform: translate(150px, 70px);
+    }
+
+    .autour2-6{
+      transform: translate(-150px, -70px);
+    }
+
+    .autour2-7{
+      transform: translate(-200px, 0px);
+    }
+
+    .autour2-8{
+      transform: translate(-100px, -140px);
+    }
+
+    .autour2-9{
+      transform: translate(0px, -140px);
+    }
+
+    .autour2-10{
+      transform: translate(100px, -140px);
+    }
+
+    .autour2-11{
+      transform: translate(150px, -70px);
+    }
+
+    .autour2-12{
+      transform: translate(200px, 0px);
+    }
+
+    /* troisieme couche avec 16 hexa */
+
+    /* top part */
+
+    .autour3-1{
+      transform: translate(50px, -210px);
+    }
+
+    .autour3-2{
+      transform: translate(-50px, -210px);
+    }
+
+    .autour3-3{
+      transform: translate(-150px, -210px);
+    }
+
+    .autour3-4{
+      transform: translate(150px, -210px);
+    }
+
+    .autour3-5{
+      transform: translate(-200px, -140px);
+    }
+
+    .autour3-6{
+      transform: translate(-250px, -70px);
+    }
+
+    .autour3-7{
+      transform: translate(200px, -140px);
+    }
+
+    .autour3-8{
+      transform: translate(250px, -70px);
+    }
+
+    .autour3-9{
+      transform: translate(300px, 0px);
+    }
+
+    .autour3-10{
+      transform: translate(-300px, 0px);
+    }
+
+    /* bottom part */
+
+    .autour3-11{
+      transform: translate(50px, 210px);
+    }
+
+    .autour3-12{
+      transform: translate(-50px, 210px);
+    }
+
+    .autour3-13{
+      transform: translate(-150px, 210px);
+    }
+
+    .autour3-14{
+      transform: translate(150px, 210px);
+    }
+
+    .autour3-15{
+      transform: translate(-200px, 140px);
+    }
+
+    .autour3-16{
+      transform: translate(-250px, 70px);
+    }
+
+    .autour3-17{
+      transform: translate(200px, 140px);
+    }
+
+    .autour3-18{
+      transform: translate(250px, 70px);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="conteneur">
+    <div class="hexagone centre"><div class="fill"></div> c</div>
+
+
+      <!-- premiere couche recoivront le noyau avec 6 hexa -->
+      <div class="hexagone autour1"> <div class="fill"></div> 1</div>
+      <div class="hexagone autour2"><div class="fill"></div> 2</div>
+      <div class="hexagone autour3"><div class="fill"></div> 3</div>
+      <div class="hexagone autour4"><div class="fill"></div> 4</div>
+      <div class="hexagone autour5"><div class="fill"></div> 5</div>
+      <div class="hexagone autour6"><div class="fill"></div> 6</div>
+
+      <!-- seconde couche recouvront le noyau avec 12 hexa -->
+
+
+      <div class="hexagone autour2-1"><div class="fill"></div> 2-1</div>
+      <div class="hexagone autour2-2"><div class="fill"></div> 2-2</div>
+      <div class="hexagone autour2-3"><div class="fill"></div> 2-3</div>
+      <div class="hexagone autour2-4"><div class="fill"></div> 2-4</div>
+      <div class="hexagone autour2-5"><div class="fill"></div> 2-5</div>
+      <div class="hexagone autour2-6"><div class="fill"></div> 2-6</div>
+      <div class="hexagone autour2-7"><div class="fill"></div> 2-7</div>
+      <div class="hexagone autour2-8"><div class="fill"></div> 2-8</div>
+      <div class="hexagone autour2-9"><div class="fill"></div> 2-9</div>
+      <div class="hexagone autour2-10"><div class="fill"></div> 2-10</div>
+      <div class="hexagone autour2-11"><div class="fill"></div> 2-11</div>
+      <div class="hexagone autour2-12"><div class="fill"></div> 2-12</div>
+
+      <!-- troisieme couche recouvant le noyau avec 18 hexa -->
+
+      <div class="hexagone autour3-1">3-1</div>
+      <div class="hexagone autour3-2">3-2</div>
+      <div class="hexagone autour3-3">3-3</div>
+      <div class="hexagone autour3-4">3-4</div>
+      <div class="hexagone autour3-5">3-5</div>
+      <div class="hexagone autour3-6">3-6</div>
+      <div class="hexagone autour3-7">3-7</div>
+      <div class="hexagone autour3-8">3-8</div>
+      <div class="hexagone autour3-9">3-9</div>
+      <div class="hexagone autour3-10">3-10</div>
+      <div class="hexagone autour3-11">3-11</div>
+      <div class="hexagone autour3-12">3-12</div>
+      <div class="hexagone autour3-13">3-13</div>
+      <div class="hexagone autour3-14">3-14</div>
+      <div class="hexagone autour3-15">3-15</div>
+      <div class="hexagone autour3-16">3-16</div>
+      <div class="hexagone autour3-17">3-17</div>
+      <div class="hexagone autour3-18">3-18</div>
+
+
+
+      <!-- nouveau racourci decouvert .classname$*5 -->
+
+  </div>
+</body>
+</html>

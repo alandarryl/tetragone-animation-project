@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hexagon center fill</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#111;
+    font-family:system-ui,Segoe UI,Roboto,Arial;
+  }
+
+  /* container juste pour centrer */
+  .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:320px;
+    height:320px;
+  }
+
+  /* hexagone : clip + overflow hidden pour masquer la "fill" hors forme */
+  .hex {
+    position:relative;
+    width:200px;
+    height:200px;
+    clip-path: polygon(
+      50% 0%,
+      100% 25%,
+      100% 75%,
+      50% 100%,
+      0% 75%,
+      0% 25%
+    );
+    overflow:hidden;
+    background: #0b0b0b; /* couleur du fond de la forme quand non remplie */
+    border: 2px solid rgba(255,255,255,0.06);
+    border-radius:8px;
+  }
+
+  /* cercle central qui va 'grandir' et remplir la forme */
+  .hex .fill {
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:20%;
+    height:20%;
+    background: linear-gradient(180deg,#00fff2,#00c6ff);
+    border-radius:50%;
+    transform: translate(-50%,-50%) scale(0);
+    transform-origin: center center;
+    filter: drop-shadow(0 6px 24px rgba(0,255,242,0.12));
+    animation: fillCenter 2.6s ease-in-out infinite;
+  }
+
+  @keyframes fillCenter {
+    0% {
+      transform: translate(-50%,-50%) scale(0);
+      opacity: 1;
+    }
+    45% {
+      /* le cercle grossit pour recouvrir entièrement l'hexagone */
+      transform: translate(-50%,-50%) scale(6.2);
+      opacity: 1;
+    }
+    55% {
+      /* maintien complètement rempli pendant un court instant */
+      transform: translate(-50%,-50%) scale(6.2);
+      opacity: 1;
+    }
+    100% {
+      /* retracte pour redevenir un point et disparaître */
+      transform: translate(-50%,-50%) scale(0);
+      opacity: 0;
+    }
+  }
+
+  /* petites options pour ajuster la vitesse / amplitude :
+     - augmente scale final si ta forme est plus grande
+     - ajuste duration pour ralentir/accélérer */
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hex">
+      <div class="fill"></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f1724;
+}
+
+.hexagone{
+    width: 150px;
+    height: 173px;
+    background: linear-gradient(180deg, #ffce57, #ff7b7b);
+    clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.hexcore{
+    display: block;
+    position: relative;
+}
+
+.hex1{
+    display: block;
+    position: absolute;
+    left: 400px;
+    bottom: 50px;
+}
+
